@@ -10,16 +10,18 @@ public class Proj2
 	public static void main(String [] args)
 	{
 		Scanner s = new Scanner(System.in);
-		String [] names = new String[4];
+		
 		int playerAmount = 0;
 		
 		final int row = 2;
 		final int column = 5;
 		
+		String bestHandName1, bestHandName2, bestHandName3, bestHandName4;
+		
 		Random r = new Random();
 		
-		int [][] hand1 = { {r.nextInt(13)+2, r.nextInt(13)+2, r.nextInt(13)+2, r.nextInt(13)+2, r.nextInt(13)+2},
-						   {r.nextInt(4), r.nextInt(4), r.nextInt(4), r.nextInt(4), r.nextInt(4)} };				   
+		int [][] hand1 = { {2, 5, 6, 6, 3},
+						   {0, 0, 1, 0, 0} };				   
 		String [] cards1 = new String [5];
 		String [] suits1 = new String [5];
 						   
@@ -37,6 +39,8 @@ public class Proj2
 						   {r.nextInt(4), r.nextInt(4), r.nextInt(4), r.nextInt(4), r.nextInt(4)} };
 		String [] cards4 = new String [5];
 		String [] suits4 = new String [5];
+		
+		String [] names = new String[4];
 		
 		do
 		{
@@ -100,9 +104,14 @@ public class Proj2
 			
 				System.out.println("\t" + cards1[i] + " of " + suits1[i]);
 			} //end for hand1
-		
+			
+			bestHandName1 = bestHand(hand1);
+			
 			System.out.println();
-		
+			System.out.println("Best hand: " + bestHandName1);
+			System.out.println();
+			System.out.println();
+
 			System.out.println(names[1].toUpperCase().substring(names[1].lastIndexOf(" ")+1, names[1].length()) + ", " + names[1].toUpperCase().substring(0,names[1].lastIndexOf(" ")));
 		
 			for(int i = 0; i < column; i++)
@@ -145,6 +154,12 @@ public class Proj2
 			
 				System.out.println("\t" + cards2[i] + " of " + suits2[i]);
 			} //end for hand2
+			
+			bestHandName2 = bestHand(hand2);
+			
+			System.out.println();
+			System.out.println("Best hand: " + bestHandName2);
+			System.out.println();
 			
 			if(playerAmount >= 3)
 			{
@@ -193,6 +208,12 @@ public class Proj2
 					System.out.println("\t" + cards3[i] + " of " + suits3[i]);
 				} //end for hand3
 				
+				bestHandName3 = bestHand(hand3);
+			
+				System.out.println();
+				System.out.println("Best hand: " + bestHandName3);
+				System.out.println();
+				
 				if(playerAmount == 4)
 				{
 					System.out.println();
@@ -240,17 +261,92 @@ public class Proj2
 						System.out.println("\t" + cards4[i] + " of " + suits4[i]);
 					} //end for hand4
 					
+					bestHandName4 = bestHand(hand4);
+			
+					System.out.println();
+					System.out.println("Best hand: " + bestHandName4);
+					System.out.println();
+					System.out.println();
 					System.out.println("Calculate the winner for 4 players here");
 				} //end if 4 players
 				else
 				{
+					System.out.println();
 					System.out.println("Calculate the winner for 3 players here");
 				} //end else if playerAmount = 3
 			} //end if 3 players
 			else
 			{
+				System.out.println();
 				System.out.println("Calculate the winner for 2 players here");
 			} //end else if playerAmount = 2
 		} //end if players 2
 	} //end main
+	
+	public static String bestHand (int [][] hand)
+	{
+		int [] cards = new int [5];
+		int [] suits = new int [5];
+		
+		Boolean flush = false;
+		Boolean straight = false;
+		
+		for(int i = 0; i < 5; i++)
+		{
+			cards[i] = hand[0][i];
+		}
+		
+		for(int k = 0; k < 5; k++)
+		{
+			suits[k] = hand[1][k];
+		}
+		
+		Arrays.sort(cards);
+		Arrays.sort(suits);
+		
+		if(suits[0] == suits[1] && suits[0] == suits[2] && suits[0] == suits[3] && suits[0] == suits[4])
+		{
+			flush = true;
+			System.out.println("Flush True");
+		}
+		
+		if((cards[0] == cards[1] - 1) && (cards[0] == cards[2] - 2) && (cards[0] == cards[3] - 3) && (cards[0] == cards[4] - 4) || 
+		(cards[0] == 2 && cards[1] == 3 && cards[2] == 4 && cards[3] == 5 && cards[4] == 14))
+		{
+			straight = true;
+			System.out.println("Straight True");
+		}
+		
+		if(flush && straight)
+			return "Straight Flush";
+		
+		else if((cards[0] == cards[1] && cards[0] == cards[2] && cards[0] == cards[3]) || 
+		(cards[1] == cards[2] && cards[1] == cards[3] && cards[1] == cards[4]))
+			return "Four of a Kind \t(if all five cards are the same, the hand will be considered to be four of a kind)";
+			
+		else if((cards[0] == cards[1] && cards[0] == cards[2] && cards[3] == cards[4]) || 
+		(cards[2] == cards[3] && cards[2] == cards[4] && cards[0] == cards[1]))
+			return "Full House";
+			
+		else if(flush)
+			return "Flush";
+		
+		else if(straight)
+			return "Straight";
+		
+		else if((cards[0] == cards[1] && cards[0] == cards[2]) ||
+		(cards[1] == cards[2] && cards[1] == cards[3]) ||
+		(cards[2] == cards[3] && cards[2] == cards[4]))
+			return "Three of a Kind";
+			
+		else if((cards[0] == cards[1] && cards[2] == cards[3]) ||
+		(cards[1] == cards[2] && cards[3] == cards[4]))
+			return "Two Pair";
+			
+		else if((cards[0] == cards[1]) || (cards[1] == cards[2]) || (cards[2] == cards[3]) || (cards[3] == cards[4]))
+			return "Pair";
+			
+		else
+			return "High Card";
+	}
 } //end class
