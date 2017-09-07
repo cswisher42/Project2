@@ -197,47 +197,47 @@ public class Proj2
 				{
 					System.out.println();
 		
-					System.out.println(names[2].toUpperCase().substring(names[2].lastIndexOf(" ")+1, names[2].length()) + ", " + names[2].toUpperCase().substring(0,names[2].lastIndexOf(" ")));
+					System.out.println(names[3].toUpperCase().substring(names[3].lastIndexOf(" ")+1, names[3].length()) + ", " + names[3].toUpperCase().substring(0,names[3].lastIndexOf(" ")));
 		
 					for(int i = 0; i < column; i++)
 					{	
-						int tempCard = hand3[0][i];
-						int tempSuit = hand3[1][i];
+						int tempCard = hand4[0][i];
+						int tempSuit = hand4[1][i];
 			
 						switch (tempCard)
 							{
 							case 11:
-								cards3[i] = "Jack";
+								cards4[i] = "Jack";
 								break;
 							case 12:
-								cards3[i] = "Queen";
+								cards4[i] = "Queen";
 								break;
 							case 13:
-								cards3[i] = "King";
+								cards4[i] = "King";
 								break;
 							case 14:
-								cards3[i] = "Ace";
+								cards4[i] = "Ace";
 								break;
 							default:
-								cards3[i] = Integer.toString(tempCard); 
+								cards4[i] = Integer.toString(tempCard); 
 						}
 					
 						switch (tempSuit)
 						{
 							case 0:
-								suits3[i] = "Spades";
+								suits4[i] = "Spades";
 								break;
 							case 1:
-								suits3[i] = "Clubs";
+								suits4[i] = "Clubs";
 								break;
 							case 2:
-								suits3[i] = "Hearts";
+								suits4[i] = "Hearts";
 								break;
 							case 3:
-								suits3[i] = "Diamonds";
+								suits4[i] = "Diamonds";
 						}
 			
-						System.out.println("\t" + cards3[i] + " of " + suits3[i]);
+						System.out.println("\t" + cards4[i] + " of " + suits4[i]);
 					} //end for hand4
 					
 					System.out.println("Calculate the winner for 4 players here");
