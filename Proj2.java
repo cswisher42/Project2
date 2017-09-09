@@ -1,7 +1,9 @@
 /*
-*
-************************************************************************************************************************************************
-************************************************************************************************************************************************
+* Chuck Swisher
+* Project 2
+* User inputs the number of players and enters their names. Five cards are then randomly generated for each
+* player and displayed. The name of the best hand for each player is then displayed. Each best hand is compared
+* to the other to determine and output a winner.
 */
 import java.util.*;
 
