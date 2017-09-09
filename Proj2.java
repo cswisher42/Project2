@@ -10,6 +10,7 @@ public class Proj2
 	public static void main(String [] args)
 	{
 		Scanner s = new Scanner(System.in);
+		StringBuilder sb = new StringBuilder();
 		
 		int playerAmount = 0;
 		
@@ -20,8 +21,8 @@ public class Proj2
 		
 		Random r = new Random();
 		
-		int [][] hand1 = { {2, 5, 6, 6, 3},
-						   {0, 0, 1, 0, 0} };				   
+		int [][] hand1 = { {r.nextInt(13)+2, r.nextInt(13)+2, r.nextInt(13)+2, r.nextInt(13)+2, r.nextInt(13)+2},
+						   {r.nextInt(4), r.nextInt(4), r.nextInt(4), r.nextInt(4), r.nextInt(4)} };				   
 		String [] cards1 = new String [5];
 		String [] suits1 = new String [5];
 						   
@@ -44,25 +45,31 @@ public class Proj2
 		
 		do
 		{
-			System.out.print("Enter the amount of player (2-4): ");
+			System.out.print("Enter the amount of players (2-4): ");
 			playerAmount = Integer.parseInt(s.nextLine());
 			
 			if(!(playerAmount >= 2 && playerAmount <= 4))
-				System.out.println("Invalid");
+				System.out.println("Invalid\n");
 			
 		}while(!(playerAmount >= 2 && playerAmount <= 4));
+		
+		System.out.println();
 		
 		for(int i = 0; i < playerAmount; i++)
 		{
 			System.out.print("Enter the name for player " + (i+1) + ": ");
-			names[i] = s.nextLine(); 
+			names[i] = s.nextLine().toUpperCase(); 
 		}
 		
 		if(playerAmount >= 2)
 		{
 			System.out.println();
-		
-			System.out.println(names[0].toUpperCase().substring(names[0].lastIndexOf(" ")+1, names[0].length()) + ", " + names[0].toUpperCase().substring(0,names[0].lastIndexOf(" ")));
+			
+			sb.append((names[0].substring((names[0].indexOf(" ")+1), names[0].length())));
+			sb.append(", ");
+			sb.append((names[0].substring(0, names[0].indexOf(" "))));
+			System.out.println(sb);
+			sb.setLength(0);
 		
 			for(int i = 0; i < column; i++)
 			{	
@@ -112,7 +119,11 @@ public class Proj2
 			System.out.println();
 			System.out.println();
 
-			System.out.println(names[1].toUpperCase().substring(names[1].lastIndexOf(" ")+1, names[1].length()) + ", " + names[1].toUpperCase().substring(0,names[1].lastIndexOf(" ")));
+			sb.append((names[1].substring((names[1].indexOf(" ")+1), names[1].length())));
+			sb.append(", ");
+			sb.append((names[1].substring(0, names[1].indexOf(" "))));
+			System.out.println(sb);
+			sb.setLength(0);
 		
 			for(int i = 0; i < column; i++)
 			{	
@@ -165,7 +176,11 @@ public class Proj2
 			{
 				System.out.println();
 		
-				System.out.println(names[2].toUpperCase().substring(names[2].lastIndexOf(" ")+1, names[2].length()) + ", " + names[2].toUpperCase().substring(0,names[2].lastIndexOf(" ")));
+				sb.append((names[2].substring((names[2].indexOf(" ")+1), names[2].length())));
+				sb.append(", ");
+				sb.append((names[2].substring(0, names[2].indexOf(" "))));
+				System.out.println(sb);
+				sb.setLength(0);
 		
 				for(int i = 0; i < column; i++)
 				{	
@@ -218,7 +233,11 @@ public class Proj2
 				{
 					System.out.println();
 		
-					System.out.println(names[3].toUpperCase().substring(names[3].lastIndexOf(" ")+1, names[3].length()) + ", " + names[3].toUpperCase().substring(0,names[3].lastIndexOf(" ")));
+					sb.append((names[3].substring((names[3].indexOf(" ")+1), names[3].length())));
+					sb.append(", ");
+					sb.append((names[3].substring(0, names[3].indexOf(" "))));
+					System.out.println(sb);
+					sb.setLength(0);
 		
 					for(int i = 0; i < column; i++)
 					{	
@@ -267,18 +286,79 @@ public class Proj2
 					System.out.println("Best hand: " + bestHandName4);
 					System.out.println();
 					System.out.println();
-					System.out.println("Calculate the winner for 4 players here");
+					
+					if((winner(bestHandName1, hand1) > winner(bestHandName2, hand2)) && (winner(bestHandName1, hand1) > winner(bestHandName3, hand3)) && (winner(bestHandName1, hand1) > winner(bestHandName4, hand4)))
+					{
+						sb.append(names[0].toUpperCase().substring(names[0].lastIndexOf(" ")+1, names[0].length()) + ", " + names[0].toUpperCase().substring(0,names[0].lastIndexOf(" ")));
+						System.out.println(sb + " Wins!");
+						sb.setLength(0);
+					}
+					else if((winner(bestHandName2, hand2) > winner(bestHandName1, hand1)) && (winner(bestHandName2, hand2) > winner(bestHandName3, hand3)) && (winner(bestHandName2, hand2) > winner(bestHandName4, hand4)))
+					{
+						sb.append(names[1].toUpperCase().substring(names[1].lastIndexOf(" ")+1, names[1].length()) + ", " + names[1].toUpperCase().substring(0,names[1].lastIndexOf(" ")));
+						System.out.println(sb + " Wins!");
+						sb.setLength(0);
+					}
+					else if((winner(bestHandName3, hand3) > winner(bestHandName1, hand1)) && (winner(bestHandName3, hand3) > winner(bestHandName2, hand2)) && (winner(bestHandName3, hand3) > winner(bestHandName4, hand4)))
+					{
+						sb.append(names[2].toUpperCase().substring(names[2].lastIndexOf(" ")+1, names[2].length()) + ", " + names[2].toUpperCase().substring(0,names[2].lastIndexOf(" ")));
+						System.out.println(sb + " Wins!");
+						sb.setLength(0);
+					}
+					else if((winner(bestHandName4, hand4) > winner(bestHandName1, hand1)) && (winner(bestHandName4, hand4) > winner(bestHandName2, hand2)) && (winner(bestHandName4, hand4) > winner(bestHandName3, hand3)))
+					{
+						sb.append(names[3].toUpperCase().substring(names[3].lastIndexOf(" ")+1, names[3].length()) + ", " + names[3].toUpperCase().substring(0,names[3].lastIndexOf(" ")));
+						System.out.println(sb + " Wins!");
+						sb.setLength(0);
+					}
+					else
+						System.out.println("It is a tie");
+					
 				} //end if 4 players
 				else
 				{
 					System.out.println();
-					System.out.println("Calculate the winner for 3 players here");
+					if((winner(bestHandName1, hand1) > winner(bestHandName2, hand2)) && (winner(bestHandName1, hand1) > winner(bestHandName3, hand3)))
+					{
+						sb.append(names[0].toUpperCase().substring(names[0].lastIndexOf(" ")+1, names[0].length()) + ", " + names[0].toUpperCase().substring(0,names[0].lastIndexOf(" ")));
+						System.out.println(sb + " Wins!");
+						sb.setLength(0);
+					}
+					else if((winner(bestHandName2, hand2) > winner(bestHandName1, hand1)) && (winner(bestHandName2, hand2) > winner(bestHandName3, hand3)))
+					{
+						sb.append(names[1].toUpperCase().substring(names[1].lastIndexOf(" ")+1, names[1].length()) + ", " + names[1].toUpperCase().substring(0,names[1].lastIndexOf(" ")));
+						System.out.println(sb + " Wins!");
+						sb.setLength(0);
+					}
+					else if((winner(bestHandName3, hand3) > winner(bestHandName1, hand1)) && (winner(bestHandName3, hand3) > winner(bestHandName2, hand2)))
+					{
+						sb.append(names[2].toUpperCase().substring(names[2].lastIndexOf(" ")+1, names[2].length()) + ", " + names[2].toUpperCase().substring(0,names[2].lastIndexOf(" ")));
+						System.out.println(sb + " Wins!");
+						sb.setLength(0);
+					}
+					else
+						System.out.println("It is a tie");
 				} //end else if playerAmount = 3
 			} //end if 3 players
-			else
+			else //Calculate the winner for 2 players here
 			{
 				System.out.println();
-				System.out.println("Calculate the winner for 2 players here");
+				
+				if(winner(bestHandName1, hand1) == winner(bestHandName2, hand2))
+					System.out.println("It is a tie.");
+				else if(winner(bestHandName1, hand1) > winner(bestHandName2, hand2))
+				{
+					sb.append(names[0].toUpperCase().substring(names[0].lastIndexOf(" ")+1, names[0].length()) + ", " + names[0].toUpperCase().substring(0,names[0].lastIndexOf(" ")));
+					System.out.println(sb + " Wins!");
+					sb.setLength(0);
+				}
+				else
+				{
+					sb.append(names[1].toUpperCase().substring(names[1].lastIndexOf(" ")+1, names[1].length()) + ", " + names[1].toUpperCase().substring(0,names[1].lastIndexOf(" ")));
+					System.out.println(sb + " Wins!");
+					sb.setLength(0);
+				}
+				
 			} //end else if playerAmount = 2
 		} //end if players 2
 	} //end main
@@ -307,14 +387,12 @@ public class Proj2
 		if(suits[0] == suits[1] && suits[0] == suits[2] && suits[0] == suits[3] && suits[0] == suits[4])
 		{
 			flush = true;
-			System.out.println("Flush True");
 		}
 		
 		if((cards[0] == cards[1] - 1) && (cards[0] == cards[2] - 2) && (cards[0] == cards[3] - 3) && (cards[0] == cards[4] - 4) || 
 		(cards[0] == 2 && cards[1] == 3 && cards[2] == 4 && cards[3] == 5 && cards[4] == 14))
 		{
 			straight = true;
-			System.out.println("Straight True");
 		}
 		
 		if(flush && straight)
@@ -339,7 +417,7 @@ public class Proj2
 		(cards[2] == cards[3] && cards[2] == cards[4]))
 			return "Three of a Kind";
 			
-		else if((cards[0] == cards[1] && cards[2] == cards[3]) ||
+		else if((cards[0] == cards[1] && cards[2] == cards[3]) || (cards[0] == cards[1] && cards[3] == cards[4]) ||
 		(cards[1] == cards[2] && cards[3] == cards[4]))
 			return "Two Pair";
 			
@@ -348,5 +426,58 @@ public class Proj2
 			
 		else
 			return "High Card";
-	}
+	} //end bestHand
+	
+	public static int winner (String hand, int [][] cards)
+	{
+		int points;
+		int [] list = new int [5];
+		
+		for(int i = 0; i < 5; i++)
+		{
+			list[i] = cards[0][i];
+		}
+		
+		Arrays.sort(list);
+		
+		switch(hand)
+		{
+			case "Straight Flush":
+				points = 22;
+				break;
+			
+			case "Four of a Kind \t(if all five cards are the same, the hand will be considered to be four of a kind)":
+				points = 21;
+				break;
+				
+			case "Full House":
+				points = 20;
+				break;
+				
+			case "Flush":
+				points = 19;
+				break;
+			
+			case "Straight":
+				points = 18;
+				break;
+				
+			case "Three of a Kind":
+				points = 17;
+				break;
+			
+			case "Two Pair":
+				points = 16;
+				break;
+				
+			case "Pair":
+				points = 15;
+				break;
+				
+			default:
+				points = list[4];
+		}
+		
+		return points;
+	} //end winner
 } //end class
